@@ -17,3 +17,8 @@ body {
 	margin-left: 20px;
 	padding: 10px;
 }
+
+#particle-selector button.selected {
+	background: green;
+	color: white;
+}
