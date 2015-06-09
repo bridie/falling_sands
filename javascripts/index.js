@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", function(event) {
 	var canvas = new Canvas;
 
-	// The game starts of with rock selected as the default.
 	var game = new Game(new Rock);
 
 	var draw = function(event) {
@@ -20,6 +19,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 	canvas.domElement.addEventListener('mouseleave', function() {
 		canvas.domElement.removeEventListener('mousemove', draw);
+	});
+
+	[].forEach.call(document.querySelectorAll('button'), function (el) {
+		el.addEventListener('click', function() {
+			document.querySelectorAll('.selected')[0].classList.remove('selected');
+			game.updateSelectedParticle(new window[el.id]);
+			el.className += 'selected';
+		});
 	});
 
 });
