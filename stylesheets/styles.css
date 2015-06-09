@@ -1,5 +1,19 @@
+body {
+	text-align: center;
+}
+
+#falling-sands-wrapper {
+	display: inline-block;
+}
+
 #falling-sands-grid {
 	background: black;
-	display: block;
-	margin: 0 auto;
+	float: left;
+}
+
+#particle-selector {
+	border: 1px solid grey;
+	float:left;
+	margin-left: 20px;
+	padding: 10px;
 }
