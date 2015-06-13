@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function(event) {
-	var game = new Game();
+	var game = new Game(new Canvas);
 	game.updateSelectedParticle(new Rock);
 
 	[].forEach.call(document.querySelectorAll('button'), function (el) {
