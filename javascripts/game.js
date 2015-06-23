@@ -1,40 +1,61 @@
 function Game(canvas) {
 	this.canvas = canvas;
-	this.mousePosition = {};
-	this.selectedParticle = null;
+	this.selectedParticleType = null;
 	this.addEventListeners();
 }
 
-Game.prototype.updateSelectedParticle = function(particle) {
-	this.selectedParticle = particle;
+Game.prototype.updateSelectedParticleType = function(particleType) {
+	this.selectedParticleType = particleType;
 }
 
-Game.prototype.createParticle = function(particle) {
-	this.canvas.context.fillStyle = particle.color;
-	this.canvas.context.fillRect(this.mousePosition.x - (particle.width / 2), this.mousePosition.y - (particle.height / 2), particle.width, particle.height);
+Game.prototype.getMousePosition = function(event) {
+	return {
+		x: event.pageX - this.canvas.element.getBoundingClientRect().left,
+		y: event.pageY - this.canvas.element.getBoundingClientRect().top
+	}
 }
 
-Game.prototype.setMousePosition = function(event) {
-	this.mousePosition.x = event.pageX - this.canvas.element.getBoundingClientRect().left;
-	this.mousePosition.y = event.pageY - this.canvas.element.getBoundingClientRect().top;
+Game.prototype.addEventListener = function(type, callback) {
+	this.canvas.element.addEventListener(type, callback);
+}
+
+Game.prototype.removeEventListener = function(type, callback) {
+	this.canvas.element.removeEventListener(type, callback);
+}
+
+Game.prototype.addParticle = function() {
+	var mousePosition = this.getMousePosition(event);
+	var particle = Particle.create(this.selectedParticleType, mousePosition.x, mousePosition.y);
+	this.canvas.addParticle(particle);
 }
 
 Game.prototype.addEventListeners = function() {
-	var onMouseMove;
-	this.canvas.element.addEventListener('mousedown', onMouseDown = function(event) {
-		this.setMousePosition(event);
-		this.createParticle(this.selectedParticle);
-		this.canvas.element.addEventListener('mousemove', onMouseMove = function(event) {
-			this.setMousePosition(event);
-			this.createParticle(this.selectedParticle);
+	this.addMouseEvents();
+
+	[].forEach.call(document.querySelectorAll('button'), function (el) {
+		el.addEventListener('click', function() {
+			document.querySelectorAll('.selected')[0].classList.remove('selected');
+			this.updateSelectedParticleType(el.id);
+			el.className += 'selected';
 		}.bind(this));
 	}.bind(this));
+}
 
-	this.canvas.element.addEventListener('mouseup', function() {
-		this.canvas.element.removeEventListener('mousemove', onMouseMove);
-	}.bind(this));
+Game.prototype.addMouseEvents = function() {
+	var onMouseMove = function(event) {
+		this.addParticle();
+	}.bind(this);
 
-	this.canvas.element.addEventListener('mouseleave', function() {
-		this.canvas.element.removeEventListener('mousemove', onMouseMove);
-	}.bind(this));
+	var onMouseDown = function(event) {
+		this.addParticle();
+		this.addEventListener('mousemove', onMouseMove);
+	}.bind(this);
+
+	var removeMouseMoveEvent = function() {
+		this.removeEventListener('mousemove', onMouseMove);
+	}.bind(this);
+
+	this.addEventListener('mousedown', onMouseDown);
+	this.addEventListener('mouseup', removeMouseMoveEvent);
+	this.addEventListener('mouseleave', removeMouseMoveEvent);
 }
