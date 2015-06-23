@@ -5,5 +5,5 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 	setInterval(function() {
 		game.canvas.draw();
-	}, 50);
+	}, 5);
 });

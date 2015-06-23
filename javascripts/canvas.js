@@ -9,8 +9,11 @@ Canvas.prototype.addParticle = function(particle) {
 }
 
 Canvas.prototype.draw = function() {
+	this.context.clearRect(0, 0, 400, 600)
+
 	this.particles.forEach(function(particle) {
 		this.context.fillStyle = particle.color;
 		this.context.fillRect(particle.x, particle.y, particle.width, particle.height);
+		particle.behave();
 	}.bind(this));
 }

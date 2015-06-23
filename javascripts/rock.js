@@ -5,3 +5,7 @@ function Rock(x, y) {
 	this.x;
 	this.y;
 }
+
+Rock.prototype.behave = function() {
+
+}
