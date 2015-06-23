@@ -7,7 +7,7 @@ function Water(x, y) {
 }
 
 Water.prototype.behave = function() {
-	if (this.y < 608) {
+	if (this.y < 600) {
 		this.y++;
 	}
 }
