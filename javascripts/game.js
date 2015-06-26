@@ -10,8 +10,8 @@ Game.prototype.updateSelectedParticleType = function(particleType) {
 
 Game.prototype.getMousePosition = function(event) {
 	return {
-		x: event.pageX - this.canvas.element.getBoundingClientRect().left,
-		y: event.pageY - this.canvas.element.getBoundingClientRect().top
+		x: event.pageX - this.canvas.element.offsetLeft,
+		y: event.pageY - this.canvas.element.offsetTop
 	}
 }
 
