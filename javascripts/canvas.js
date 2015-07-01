@@ -4,7 +4,10 @@ function Canvas() {
 	this.width = 400;
 	this.height = 600;
 	this.particles = [];
+	this.initialiseParticles();
+}
 
+Canvas.prototype.initialiseParticles = function() {
 	for (var x = 0; x < this.width; x++) {
 		var column = [];
 		for (var y = 0; y < this.height; y++) {
