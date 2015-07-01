@@ -24,11 +24,11 @@ Canvas.prototype.addParticle = function(particle) {
 Canvas.prototype.draw = function() {
 	this.context.clearRect(0, 0, 400, 600);
 
-	for (var i = 0, iLength = this.particles.length; i < iLength; i++) {
-		var col = this.particles[i];
-		for (var j = 0, jLength = col.length; j < jLength; j++) {
-			if (col[j] != 'air') {
-				var particle = col[j];
+	for (var x = 0, width = this.particles.length; x < width; x++) {
+		var col = this.particles[x];
+		for (var y = 0, height = col.length; y < height; y++) {
+			if (col[y] != 'air') {
+				var particle = col[y];
 				this.context.fillStyle = particle.color;
 				this.context.fillRect(particle.x, particle.y, particle.width, particle.height);
 				particle.behave();
