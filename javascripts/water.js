@@ -1,4 +1,5 @@
 function Water(x, y) {
+	this.name = 'Water';
 	this.color = '#2E65C9';
 	this.width = 3;
 	this.height = 3;
